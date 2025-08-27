@@ -1,5 +1,7 @@
 name: pre-RefPan
 channels:
   - defaults
+  - bioconda
 dependencies:
-  - 
+  - bcftools=1.20
+  - vt

@@ -3,8 +3,17 @@ COPY environment.yml .
 
 # Install software
 RUN apt-get update && \
-    apt-get install -y tabix
-RUN apt-get clean
+    apt-get install -y \
+    wget \
+    build-essential \
+    make \
+    libz-dev \
+    libbz2-dev \
+    liblzma-dev \
+    libcurl4-openssl-dev \
+    libgsl-dev \
+    tabix && \
+    apt-get clean 
 
 # Install bcftools
 ENV BCFTOOLS_VERSION=1.20
@@ -15,6 +24,3 @@ RUN wget https://github.com/samtools/bcftools/releases/download/${BCFTOOLS_VERSI
     ./configure && \
     make && \
     make Install
-
-# Install VT
-
