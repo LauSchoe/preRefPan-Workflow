@@ -5,6 +5,8 @@ AC = params.allele_count
 
 include {FILTER_SAMPLE_DATA} from '../modules/local/filter_sample_data.nf'
 include {MERGE} from '../modules/local/merge.nf'
+include {SITES} from '../modules/local/sites.nf'
+include {COMPRESS} from '../modules/local/compress.nf'
 
 workflow PRE_REFPAN {
     FILTER_SAMPLE_DATA(sample_data_ch, alt_data, indel_data)
@@ -13,4 +15,8 @@ workflow PRE_REFPAN {
     filtered_tbi_ch = FILTER_SAMPLE_DATA.out.filtered_tbi.collect()
 
     MERGE(filtered_vcf_ch, filtered_tbi_ch, AC)
+
+    SITES(MERGE.out.file_merged)
+
+    COMPRESS(MERGE.out.file_merged)
 }

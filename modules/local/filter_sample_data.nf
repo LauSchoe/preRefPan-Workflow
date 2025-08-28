@@ -11,7 +11,7 @@ process FILTER_SAMPLE_DATA {
     path("*_filtered.vcf.gz.tbi"), emit: filtered_tbi
 
     script:
-    def sample_name = sample_data.baseName
+    def sample_name = "$sample_data".endsWith("vcf.gz") ? "$sample_data".replaceAll('.vcf.gz', '') : "$sample_data.baseName"
     
     """
     # create file without indels

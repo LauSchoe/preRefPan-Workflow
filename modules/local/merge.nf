@@ -1,5 +1,5 @@
 process MERGE {
-    publishDir "${params.pubDir}", mode: 'copy'
+    publishDir "${params.pubDir}/merge", mode: 'copy'
 
     input: 
     path filtered_vcf_ch

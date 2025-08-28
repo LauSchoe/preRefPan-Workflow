@@ -2,6 +2,7 @@ name: pre-RefPan
 channels:
   - defaults
   - bioconda
+  - conda-forge
 dependencies:
   - bcftools=1.20
   - vt
