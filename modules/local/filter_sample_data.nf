@@ -7,15 +7,13 @@ process FILTER_SAMPLE_DATA {
     val (indel_data)
 
     output:
-    file("*_filtered.vcf.gz")
-    file("*_filtered.vcf.gz.tbi")
+    path("*_filtered.vcf.gz"), emit: filtered_vcf
+    path("*_filtered.vcf.gz.tbi"), emit: filtered_tbi
 
     script:
     def sample_name = sample_data.baseName
     
     """
-    #!/bin/bash
-
     # create file without indels
     if [[ ${indel_data} == "noindel" ]]; then
         bcftools view -V indels ${sample_data} -O z -o tmp_${sample_name}.vcf.gz
