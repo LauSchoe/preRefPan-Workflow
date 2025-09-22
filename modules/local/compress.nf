@@ -10,7 +10,7 @@ process COMPRESS {
     script:
     def input_name = "$file_merged".endsWith("vcf.gz") ? "$file_merged".replaceAll('.vcf.gz', '') : "$file_merged.baseName"
     """
-    minimac4 --compress-reference ${file_merged} > ${input_name}.msav
+    minimac4 --compress-reference ${file_merged} > chrMT_${input_name}.msav
     """
 
 }
