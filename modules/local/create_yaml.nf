@@ -2,9 +2,11 @@ process CREATE_YAML {
     publishDir "${params.pubDir}/reference_panel", mode: 'copy'
 
     input:
-    val(filtered_count)
+    //val(filtered_count)
     path(sites_file)
     path(msav_file)
+    file(file_merged)
+
 
     output:
     file("cloudgene.yaml")
@@ -12,6 +14,7 @@ process CREATE_YAML {
     script:
 
     """
+    sample_count=\$(bcftools query -l ${file_merged} | wc -l)
     echo "name: ${params.project}" > cloudgene.yaml
     echo "version: ${params.version}" >> cloudgene.yaml
     echo "website: http://imputationserver.sph.umich.edu" >> cloudgene.yaml
@@ -26,7 +29,7 @@ process CREATE_YAML {
     echo "  populations:" >> cloudgene.yaml
     echo "      - id: all" >> cloudgene.yaml
     echo "        name: all" >> cloudgene.yaml
-    echo "        samples: ${filtered_count}" >> cloudgene.yaml
+    echo "        samples: \$sample_count" >> cloudgene.yaml
     echo "      - id: "off"" >> cloudgene.yaml
     echo "        name: OFF" >> cloudgene.yaml
     echo "        samples: -1" >> cloudgene.yaml

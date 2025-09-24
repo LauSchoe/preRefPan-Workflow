@@ -32,6 +32,7 @@ process MERGE {
     bcftools norm -m - |
     # filter for AC <= AC
     bcftools view -e "INFO/AC<${AC}" -Oz -o chrMT_${params.project}_AC${AC}_merged.vcf.gz
+
     """
 
 

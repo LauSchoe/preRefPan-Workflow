@@ -28,6 +28,7 @@ workflow PRE_REFPAN {
 
     COMPRESS(MERGE.out.file_merged)
 
-    filtered_count = FILTER_SAMPLE_DATA.out.filtered_vcf.count()
-    CREATE_YAML(filtered_count, SITES.out.sites_file, COMPRESS.out.msav_file)
+    //filtered_count = FILTER_SAMPLE_DATA.out.filtered_vcf.count()
+
+    CREATE_YAML(SITES.out.sites_file, COMPRESS.out.msav_file, MERGE.out.file_merged)
 }
