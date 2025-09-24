@@ -7,6 +7,7 @@ include {FILTER_SAMPLE_DATA} from '../modules/local/filter_sample_data.nf'
 include {MERGE} from '../modules/local/merge.nf'
 include {SITES} from '../modules/local/sites.nf'
 include {COMPRESS} from '../modules/local/compress.nf'
+include {CREATE_YAML} from '../modules/local/create_yaml.nf'
 
 workflow PRE_REFPAN {
 
@@ -26,4 +27,7 @@ workflow PRE_REFPAN {
     SITES(MERGE.out.file_merged)
 
     COMPRESS(MERGE.out.file_merged)
+
+    filtered_count = FILTER_SAMPLE_DATA.out.filtered_vcf.count()
+    CREATE_YAML(filtered_count, SITES.out.sites_file, COMPRESS.out.msav_file)
 }
