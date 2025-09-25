@@ -6,7 +6,7 @@ process SITES {
 
     output:
     path("*.legend.gz"), emit: sites_file
-    path("*.legend.gz.tbi")
+    path("*.legend.gz.tbi"), emit: sites_tabix
 
     script:
     def input_name = "$file_merged".endsWith("vcf.gz") ? "$file_merged".replaceAll('.vcf.gz', '') : "$file_merged.baseName"

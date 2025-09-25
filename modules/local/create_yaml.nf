@@ -2,17 +2,15 @@ process CREATE_YAML {
     publishDir "${params.pubDir}/reference_panel", mode: 'copy'
 
     input:
-    //val(filtered_count)
-    path(sites_file)
-    path(msav_file)
+    file(sites_file)
+    file(msav_file)
     file(file_merged)
 
-
     output:
-    file("cloudgene.yaml")
+    path("cloudgene.yaml"), emit: cloudgene_file
+
 
     script:
-
     """
     sample_count=\$(bcftools query -l ${file_merged} | wc -l)
     echo "name: ${params.project}" > cloudgene.yaml

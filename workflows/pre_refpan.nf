@@ -8,6 +8,7 @@ include {MERGE} from '../modules/local/merge.nf'
 include {SITES} from '../modules/local/sites.nf'
 include {COMPRESS} from '../modules/local/compress.nf'
 include {CREATE_YAML} from '../modules/local/create_yaml.nf'
+include {CREATE_ZIP} from '../modules/local/create_zip.nf'
 
 workflow PRE_REFPAN {
 
@@ -28,7 +29,7 @@ workflow PRE_REFPAN {
 
     COMPRESS(MERGE.out.file_merged)
 
-    //filtered_count = FILTER_SAMPLE_DATA.out.filtered_vcf.count()
-
     CREATE_YAML(SITES.out.sites_file, COMPRESS.out.msav_file, MERGE.out.file_merged)
+
+    CREATE_ZIP(COMPRESS.out.msav_file, SITES.out.sites_file,SITES.out.sites_tabix, CREATE_YAML.out.cloudgene_file)
 }
