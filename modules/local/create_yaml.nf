@@ -3,7 +3,7 @@ process CREATE_YAML {
 
     input:
     file(sites_file)
-    file(msav_file)
+    path(msav_file)
     file(file_merged)
 
     output:
@@ -11,6 +11,9 @@ process CREATE_YAML {
 
 
     script:
+    def normalized_msav = msav_file.name.replaceFirst(/^chr[^_]+/, "chr")
+    def normalized_sites = sites_file.name.replaceFirst(/^chr[^_]+/, "chr")
+
     """
     sample_count=\$(bcftools query -l ${file_merged} | wc -l)
     echo "name: ${params.project}" > cloudgene.yaml
@@ -22,8 +25,8 @@ process CREATE_YAML {
     echo "properties:" >> cloudgene.yaml
     echo "  id: ${params.id}" >> cloudgene.yaml
     echo "  build: ${params.build}" >> cloudgene.yaml
-    echo "  genotypes: \\\${CLOUDGENE_APP_LOCATION}/msavs/${msav_file}" >> cloudgene.yaml
-    echo "  sites: \\\${CLOUDGENE_APP_LOCATION}/sites/${sites_file}" >> cloudgene.yaml
+    echo "  genotypes: \\\${CLOUDGENE_APP_LOCATION}/msavs/chr\\\$${normalized_msav}"  >> cloudgene.yaml
+    echo "  sites: \\\${CLOUDGENE_APP_LOCATION}/sites/chr\\\$${normalized_sites}" >> cloudgene.yaml
     echo "  populations:" >> cloudgene.yaml
     echo "      - id: all" >> cloudgene.yaml
     echo "        name: all" >> cloudgene.yaml
