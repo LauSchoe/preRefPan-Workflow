@@ -6,6 +6,7 @@ process MERGE {
     path filtered_tbi_ch
     val (AC)
     path subset_sample_file
+    val count
 
     output:
     path("*_merged.vcf.gz"), emit: file_merged
@@ -13,7 +14,12 @@ process MERGE {
     script:
     """
     # merge all files
-    bcftools merge -0 ${filtered_vcf_ch} -Oz -o merged.vcf.gz
+    if [[ ${count} > 1 ]]
+    then
+        bcftools merge -0 ${filtered_vcf_ch} -Oz -o merged.vcf.gz
+    else
+        mv ${filtered_vcf_ch} merged.vcf.gz
+    fi
 
     # select subset of samples
     if [[ -n "${params.subset_sample_file}" ]]
