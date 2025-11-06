@@ -5,7 +5,7 @@ This repository contains a pipeline for post-calling processing of mitochondrial
 ```
 git clone https://github.com/LauSchoe/preRefPan-Workflow.git
 cd pre-Refpan-Workflow
-docker build -t prerefpan_image - # don't ignore the dot
+docker build -t prerefpan_image . # don't ignore the dot
 ```
 
 ## Run with test data
