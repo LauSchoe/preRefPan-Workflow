@@ -8,7 +8,7 @@ cd pre-Refpan-Workflow
 docker build -t prerefpan_image - # don't ignore the dot
 ```
 
-## Run
+## Run with test data
 ```
-nextflow run main.nf -c conf/job.config
+nextflow run main.nf -c test/test.config
 ```
