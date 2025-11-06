@@ -10,5 +10,5 @@ docker build -t prerefpan_image . # don't ignore the dot
 
 ## Run with test data
 ```
-nextflow run main.nf -c test/test.config
+nextflow run main.nf -c conf/test.config
 ```
